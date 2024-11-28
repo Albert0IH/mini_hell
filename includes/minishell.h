@@ -25,24 +25,4 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-// Parsing
-char	*ft_strtok(char *str, const char *delim);
-char	**tokenize(char *input);
-void	free_tokens(char **tokens);
-
-// Execution
-void	exec_command(char **args);
-char	*find_exec(char *command);
-
-// Builtins
-int		is_builtin(char **args);
-int		builtin_cd(char **args);
-int		builtin_echo(char **args);
-int		builtin_exit(void);
-int		builtin_env(void);
-
-// Utilities
-char	*remove_quotes(const char *arg);
-char	*expand_env_vars(char *arg);
-
 #endif
