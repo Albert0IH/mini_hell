@@ -25,4 +25,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+// Parsing
+void	tokenize_inputs(char *input, char **args);
+
 #endif

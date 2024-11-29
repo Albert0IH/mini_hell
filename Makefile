@@ -6,19 +6,19 @@
 #    By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 10:51:22 by ahamuyel          #+#    #+#              #
-#    Updated: 2024/11/28 15:29:03 by ahamuyel         ###   ########.fr        #
+#    Updated: 2024/11/29 10:37:30 by txavier          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = cc 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 SRCS_DIR = ./srcs
 OBJS_DIR = ./objs
 INCLUDES = -I./includes
 
-SRCS =	$(SRCS_DIR)/main.c
+SRCS =	$(SRCS_DIR)/main.c $(SRCS_DIR)/tokenize.c
 
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 

@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 11:11:09 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/28 15:31:12 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/29 10:36:11 by txavier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,30 @@
 int	main(void)
 {
 	char	*input;
+	char	**tokens;
+	int		i;
 
 	while (1)
 	{
 		input = readline("minishell> ");
-		if (!input)
+		if (!input || ft_strncmp(input, "exit", 5) == 0)
 		{
-			printf("exit\n");
+			free(input);
 			break ;
 		}
 		if (*input)
 			add_history(input);
-		printf("%s\n", input);
+		tokens = malloc(sizeof(char *) * 100);
+		tokenize_inputs(input, tokens);
+		i = 0;
+		while (tokens[i])
+		{
+			printf("[%d] %s\n", i, tokens[i]);
+			i++;
+		}
+		free(tokens);
 		free(input);
 	}
+	rl_clear_history();
 	return (0);
 }
-
