@@ -16,7 +16,6 @@ int	main(void)
 {
 	char	*input;
 	char	**tokens;
-	int		i;
 
 	while (1)
 	{
@@ -30,12 +29,7 @@ int	main(void)
 			add_history(input);
 		tokens = malloc(sizeof(char *) * 100);
 		tokenize_inputs(input, tokens);
-		i = 0;
-		while (tokens[i])
-		{
-			printf("[%d] %s\n", i, tokens[i]);
-			i++;
-		}
+		execute_command(tokens);
 		free(tokens);
 		free(input);
 	}
