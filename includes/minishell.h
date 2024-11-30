@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:50:50 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/27 11:45:00 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/11/30 05:42:18 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	tokenize_inputs(char *input, char **args);
 
 // Execution
 char	*get_command_path(char *cmd);
-void execute_command(char **input);
-void	ft_free(char **array);
+int		execute_command(char **args);
+void	free_args(char **array);
 
 #endif
