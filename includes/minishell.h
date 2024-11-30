@@ -28,4 +28,9 @@
 // Parsing
 void	tokenize_inputs(char *input, char **args);
 
+// Execution
+char	*get_command_path(char *cmd);
+void execute_command(char **input);
+void	ft_free(char **array);
+
 #endif
