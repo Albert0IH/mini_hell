@@ -62,12 +62,12 @@ int	execute_command(char **args)
 	pid = fork();
 	if (pid == 0)
 	{
-        cmd_path = get_command_path(args[0]);
-        if (cmd_path == NULL)
-        {
-            fprintf(stderr, "Comand not found: %s\n", args[0]);
-            exit(EXIT_FAILURE);
-        }
+		cmd_path = get_command_path(args[0]);
+		if (cmd_path == NULL)
+		{
+			fprintf(stderr, "Comand not found: %s\n", args[0]);
+			exit(EXIT_FAILURE);
+		}
 		if (execve(cmd_path, args, NULL) == -1)
 		{
 			perror("exece");
