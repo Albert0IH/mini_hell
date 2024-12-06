@@ -65,12 +65,13 @@ int	execute_command(char **args)
 		cmd_path = get_command_path(args[0]);
 		if (cmd_path == NULL)
 		{
-			fprintf(stderr, "Comand not found: %s\n", args[0]);
+			ft_putstr_fd("Comand not found:", 2);
+			ft_putstr_fd(args[0], 2);
 			exit(EXIT_FAILURE);
 		}
 		if (execve(cmd_path, args, NULL) == -1)
 		{
-			perror("exece");
+			perror("execve");
 			exit(EXIT_FAILURE);
 		}
 	}

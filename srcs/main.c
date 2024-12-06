@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 11:11:09 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/11/29 10:36:11 by txavier          ###   ########.fr       */
+/*   Updated: 2024/12/03 09:57:35 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	main(void)
 {
+
 	char	*input;
 	char	**tokens;
 
