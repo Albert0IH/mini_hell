@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 14:58:33 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/12/06 12:28:35 by ahamuyel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/minishell.h"
 
-void	split_pipes(char *input, char **cmd)
+void split_pipes(char *input, char **cmd)
 {
 	int		i;
 	char	*token;
@@ -28,7 +16,7 @@ void	split_pipes(char *input, char **cmd)
 	cmd[i] = NULL;
 }
 
-void	execute_single_command(char *cmd)
+void execute_single_command(char *cmd)
 {
 	char	*args[100];
 	char	*cmd_path;
@@ -37,8 +25,10 @@ void	execute_single_command(char *cmd)
 	cmd_path = get_command_path(args[0]);
 	if (cmd_path == NULL)
 	{
-		fprintf(stderr, "Command not found: %s\n", args[0]);
-		exit(EXIT_FAILURE);
+		ft_putstr_fd("Command not found: ", 2);
+        ft_putstr_fd(args[0], 2);
+        ft_putstr_fd("\n", 2);
+        exit(EXIT_FAILURE);
 	}
 	if (execve(cmd_path, args, NULL) == -1)
 	{
@@ -47,50 +37,55 @@ void	execute_single_command(char *cmd)
 	}
 }
 
-void	execute_pipeline(char *cmd1, char *cmd2)
+void execute_pipeline(char **commands)
 {
-	int		fd[2];
-	pid_t	pid1;
-	pid_t	pid2;
+	int		i = 0, fd[2], in_fd = 0;
+	pid_t	pid;
 
-	if (pipe(fd) == -1)
+	while (commands[i])
 	{
-		perror("pipe");
-		exit(EXIT_FAILURE);
+		// Criar um pipe para cada par de comandos
+		if (commands[i + 1] && pipe(fd) == -1)
+		{
+			perror("pipe");
+			exit(EXIT_FAILURE);
+		}
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+		if (pid == 0)
+		{
+			// No processo filho
+			if (in_fd != 0) // Conectar entrada ao pipe anterior
+			{
+				dup2(in_fd, STDIN_FILENO);
+				close(in_fd);
+			}
+			if (commands[i + 1]) // Se não for o último comando, conectar saída ao próximo pipe
+			{
+				dup2(fd[1], STDOUT_FILENO);
+				close(fd[1]);
+			}
+			execute_single_command(commands[i]);
+		}
+		else
+		{
+			// No processo pai
+			wait(NULL);
+			if (in_fd != 0) // Fechar pipe anterior
+				close(in_fd);
+			if (commands[i + 1]) // Atualizar in_fd para o próximo comando
+				in_fd = fd[0];
+			close(fd[1]); // Fechar a saída do pipe atual
+		}
+		i++;
 	}
-	pid1 = fork();
-	if (pid1 == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	if (pid1 == 0)
-	{
-		close(fd[0]);
-		dup2(fd[1], STDOUT_FILENO);
-		close(fd[1]);
-		execute_single_command(cmd1);
-	}
-	pid2 = fork();
-	if (pid2 == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
-	if (pid2 == 0)
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		execute_single_command(cmd2);
-	}
-	close(fd[0]);
-	close(fd[1]);
-	waitpid(pid1, NULL, 0);
-	waitpid(pid2, NULL, 0);
 }
 
-int	main(void)
+int main(void)
 {
 	char *input;
 	char *commands[10]; // Para até 10 comandos separados por pipe
@@ -115,9 +110,9 @@ int	main(void)
 				execute_single_command(commands[0]);
 			wait(NULL);
 		}
-		else // Pipeline com dois comandos
+		else // Pipeline com múltiplos comandos
 		{
-			execute_pipeline(commands[0], commands[1]);
+			execute_pipeline(commands);
 		}
 
 		free(input);
