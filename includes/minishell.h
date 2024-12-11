@@ -6,7 +6,7 @@
 /*   By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 10:50:50 by ahamuyel          #+#    #+#             */
-/*   Updated: 2024/12/06 12:39:31 by ahamuyel         ###   ########.fr       */
+/*   Updated: 2024/12/11 17:08:48 by ahamuyel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,17 @@
 # include <string.h>
 # include <sys/wait.h>
 # include <unistd.h>
+#include <fcntl.h>       // Para funções e constantes relacionadas a arquivos
+
 
 // Parsing
 void	tokenize_inputs(char *input, char **args);
 char	*my_strtok(char *str, const char *delim);
 // Execution
 char	*get_command_path(char *cmd);
-int		execute_command(char **args);
+void	execute_command(char *cmd);
 void	free_args(char **array);
 // Pipes
 void	split_pipes(char *input, char **commands);
-void	execute_single_command(char *cmd);
 void execute_pipeline(char **commands);
 #endif
