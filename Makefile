@@ -6,7 +6,7 @@
 #    By: ahamuyel <ahamuyel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/19 10:51:22 by ahamuyel          #+#    #+#              #
-#    Updated: 2024/12/06 12:20:08 by ahamuyel         ###   ########.fr        #
+#    Updated: 2024/12/14 19:11:48 by ahamuyel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS_DIR = ./srcs
 OBJS_DIR = ./objs
 INCLUDES = -I./includes
 
-SRCS =	$(SRCS_DIR)/pipe.c  $(SRCS_DIR)/tokenize.c $(SRCS_DIR)/execute.c
+SRCS =	$(SRCS_DIR)/main.c  $(SRCS_DIR)/tokenize.c $(SRCS_DIR)/execute.c
 
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 

@@ -30,12 +30,12 @@ void	tokenize_inputs(char *input, char **args)
 	char	*token;
 
 	input[ft_strcspn(input, "\n")] = '\0';
-	token = my_strtok(input, " >;");
+	token = my_strtok(input, " ;");
 	i = 0;
 	while (token != NULL)
 	{
 		args[i] = token;
-		token = my_strtok(NULL, " >;");
+		token = my_strtok(NULL, " ;");
 		i++;
 	}
 	args[i] = NULL;

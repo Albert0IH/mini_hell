@@ -1,7 +1,0 @@
-Alberto.txt
-a.txt
-b.txt
-curious.txt
-last.txt
-output.txt
-result.txt
