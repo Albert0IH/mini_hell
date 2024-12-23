@@ -44,6 +44,7 @@ char				*ft_strdup(const char *s);
 char				**ft_split(char const *s, char c);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strchr(const char *s, int c);
+char				*ft_strcpy(char *dest, const char *src);
 char				*ft_strrchr(const char *s, int c);
 char				*ft_itoa(int n);
 char				*ft_strnstr(const char *big, const char *little,

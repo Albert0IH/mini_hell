@@ -1,21 +1,5 @@
 #include "../includes/minishell.h"
 
-// void	split_pipes(char *input, char **cmd)
-// {
-// 	int		i;
-// 	char	*token;
-
-// 	i = 0;
-// 	token = my_strtok(input, "|");
-// 	while (token)
-// 	{
-// 		cmd[i] = token;
-// 		token = my_strtok(NULL, "|");
-// 		i++;
-// 	}
-// 	cmd[i] = NULL;
-// }
-
 void split_pipes(char *input, char **cmd)
 {
 	int i;
